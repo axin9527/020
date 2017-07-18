@@ -17,13 +17,52 @@
 <script type="text/javascript">
 
 apiready = function(){
-    	api.openWin({
+
+        api.openFrameGroup ({
+            name: 'welcome_frame_group',
+            background: '#fff',
+            scrollEnabled: true,
+            rect: {
+                 x: 0, 
+                 y: 0, 
+                 w: 'auto', 
+                 h: 'auto'
+            },
+            index: 0,
+            frames: [{
+                name: 'welcome_frame_1', 
+                url: './html/welcome_frame_1.html',
+                bgColor: './image/welcome/1.png'
+            },{
+                name: 'welcome_frame_2', 
+                url: './html/welcome_frame_2.html', 
+                bgColor: './image/welcome/2.png'
+            },{
+                name: 'welcome_frame_3', 
+                url: './html/welcome_frame_3.html', 
+                bgColor: './image/welcome/3.png'
+            },{
+                name: 'welcome_frame_4', 
+                url: './html/welcome_frame_4.html', 
+                bgColor: './image/welcome/4.png'
+            }]
+        }, function(ret, err){
+            if( !ret ){
+             alert( JSON.stringify( err ) );
+            }
+        });
+
+
+    	/*api.openWin({
             name: 'main',
             url: './html/main.html',
             pageParam: {
                 name: 'itest'
             }
         });
+*/
+
+
 }
 
 
