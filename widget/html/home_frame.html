@@ -410,7 +410,7 @@
         <div class="swipe-wrap">
             <div class="swipe-page">
                 <div class="swipe-page-row">
-                    <div class="swipe-page-item">
+                    <div class="swipe-page-item" onclick="fnOpenShopListWin()">
                         <img src="../image/swipe/around.png">
                         <span>周边</span>
                     </div>
@@ -673,8 +673,33 @@
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
 <script type="text/javascript">
-   
+    function fnOpenShopListWin() {
+        api.openWin({
+            name: 'shoplist',
+            url: './shoplist.html',
+            bounces: false
+        });
+    };
+
+    onload = function() {
+        // for swipe
+        var indicator = $api.byId('swipeIndicator');
+        var indicatorItems = $api.domAll(indicator, 'li');
+        var swipe = Swipe($api.byId('swipe'), {
+            auto: 60000,
+            continuous: true,
+            callback: function(index_, elem_) {
+                var i = indicatorItems.length;
+                while (i--) {
+                    $api.removeCls(indicatorItems[i], 'active');
+                }
+                $api.addCls(indicatorItems[index_], 'active');
+            }
+        });
+    };
+
     apiready = function() {
 
     };

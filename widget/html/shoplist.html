@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header {
+            background: #FCFCFC;
+            height: 50px;
+            border-bottom: 1px solid #DDDFE3;
+        }
+        
+        .back {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            width: 50px;
+            height: 50px;
+            background: url(../image/header/back.png) center center no-repeat;
+            background-size: 15px auto;
+        }
+        
+        .switch {
+            position: absolute;
+            left: 90px;
+            right: 90px;
+            bottom: 10px;
+            background-color: #fcfcfc;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 4px;
+            color: #fff;
+            text-align: center;
+            border: 1px solid #f63;
+        }
+        
+        .switch div {
+            float: left;
+            width: 50%;
+            display: inline-block;
+            color: #FF6633;
+        }
+        
+        .switch div:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .switch div:last-child {
+            border-radius: 0px 4px 4px 0px;
+        }
+        
+        .switch-act {
+            background-color: #FF6633;
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="back" onclick="api.closeWin()"></div>
+        <div class="switch">
+            <div class="switch-item" id="left" onclick="fnSwitchFrame(0)">商户</div>
+            <div class="switch-item" id="right" onclick="fnSwitchFrame(1)">团购</div>
+        </div>
+    </header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var frames = ['shoplist_frame', 'groupbuylist_frame'];
+    var switchs;
+    var headerHeight;
+
+    apiready = function() {
+        var header = $api.dom('header');
+
+        $api.fixStatusBar(header);
+
+        headerHeight = $api.offset(header).h;
+
+        switchs = $api.domAll(header, '.switch-item');
+
+        fnSwitchFrame(0);
+    };
+
+    //在2个FRAME之间切换
+    function fnSwitchFrame(index) {
+        for (var i = 0; i < frames.length; i++) {
+            if (index == i) {
+                var frameHeight = api.frameHeight - headerHeight;
+
+                api.openFrame({
+                    name: frames[i],
+                    url: './shoplist_frame.html',
+                    bounces: false,
+                    rect: {
+                        x: 0,
+                        y: headerHeight,
+                        w: 'auto',
+                        h: frameHeight
+                    },
+                    pageParam: {
+                        //将对应的商户类型传递给frame
+                        shopType: index
+                    }
+                });
+
+                //为选中的按钮加选中样式
+                $api.addCls(switchs[i], 'switch-act');
+            } else {
+                api.setFrameAttr({
+                    name: frames[i],
+                    hidden: true
+                });
+
+                //将未选中的按钮们去掉选中样式
+                $api.removeCls(switchs[i], 'switch-act');
+            }
+        }
+    };
+</script>
+
+</html>

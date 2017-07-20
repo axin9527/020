@@ -1,71 +1,64 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>Hello World</title>
+    <title>Hello APP</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css" />
     <style type="text/css">
-    
+
     </style>
 </head>
+
 <body>
-    
 </body>
 <script type="text/javascript" src="./script/api.js"></script>
 <script type="text/javascript">
+apiready = function() {
+    api.openFrameGroup({
+        name: 'welcome_frame_group',
+        scrollEnabled: true,
+        rect: {
+            x:0,
+            y:0,
+            w:'auto',
+            h:'auto'
+        },
+        index: 0,
+        frames: [{
+            name: 'welcome_frame_1', 
+            url: './html/welcome_frame_1.html',
+            bgColor:'./image/welcome/1.png',
+            bounces:false
+        },{
+            name: 'welcome_frame_2', 
+            url: './html/welcome_frame_2.html',
+            bgColor: './image/welcome/2.png',
+            bounces:false
+        },{
+            name: 'welcome_frame_3', 
+            url: './html/welcome_frame_3.html',
+            bgColor:'./image/welcome/3.png',
+            bounces:false
+        },{
+            name: 'welcome_frame_4', 
+            url: './html/welcome_frame_4.html',
+            bgColor: './image/welcome/4.png',
+            bounces:false
+        }]
+    }, function(ret, err){
+       var name  = ret.name;
+       var index = ret.index;
+    });
 
-apiready = function(){
+    // api.openWin({
+    //     name: 'main',
+    //     url: './html/main.html',
+    //     bounces: false
+    // });
+};
+</script>
 
-        api.openFrameGroup ({
-            name: 'welcome_frame_group',
-            background: '#fff',
-            scrollEnabled: true,
-            rect: {
-                 x: 0, 
-                 y: 0, 
-                 w: 'auto', 
-                 h: 'auto'
-            },
-            index: 0,
-            frames: [{
-                name: 'welcome_frame_1', 
-                url: './html/welcome_frame_1.html',
-                bgColor: './image/welcome/1.png'
-            },{
-                name: 'welcome_frame_2', 
-                url: './html/welcome_frame_2.html', 
-                bgColor: './image/welcome/2.png'
-            },{
-                name: 'welcome_frame_3', 
-                url: './html/welcome_frame_3.html', 
-                bgColor: './image/welcome/3.png'
-            },{
-                name: 'welcome_frame_4', 
-                url: './html/welcome_frame_4.html', 
-                bgColor: './image/welcome/4.png'
-            }]
-        }, function(ret, err){
-            if( !ret ){
-             alert( JSON.stringify( err ) );
-            }
-        });
-
-
-    	/*api.openWin({
-            name: 'main',
-            url: './html/main.html',
-            pageParam: {
-                name: 'itest'
-            }
-        });
-*/
-
-
-}
-
-
-
-</script>        
 </html>
