@@ -361,6 +361,7 @@
         // list.innerHTML=html;
 
         list.innerHTML = dotFunction(datas);
+        api.refreshHeaderLoadDone();
     };
 
     var list, tmp, dotFunction;
@@ -369,7 +370,22 @@
         tmp = $api.byId('dotTemplate');
         dotFunction = doT.template(tmp.innerHTML);
         
-        fnGetData(api.pageParam.shopType);
+        // fnGetData(api.pageParam.shopType);
+
+
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/find/logo_01.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function(ret, err){
+            fnGetData(api.pageParam.shopType);
+
+        });
+        api.refreshHeaderLoading();
     };
 </script>
 

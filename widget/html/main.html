@@ -238,6 +238,11 @@
             background-image: url(../image/footer/my_act.png);
             color: rgb(254, 151, 84);
         }
+
+        .highlight{
+            opacity: 0.5;
+            line-height: 15px;
+        }
     </style>
 </head>
 
@@ -278,10 +283,10 @@
     </header>
     <div class="no-use"></div>
     <footer>
-        <div class="active" onclick="fnSwitchFrame(0);">首页</div>
-        <div onclick="fnSwitchFrame(1);">团购</div>
-        <div onclick="fnSwitchFrame(2);">发现</div>
-        <div onclick="fnSwitchFrame(3);">我的</div>
+        <div class="active" tapmode onclick="fnSwitchFrame(0);">首页</div>
+        <div tapmode="highlight" onclick="fnSwitchFrame(1);">团购</div>
+        <div tapmode="highlight" onclick="fnSwitchFrame(2);">发现</div>
+        <div tapmode="highlight" onclick="fnSwitchFrame(3);">我的</div>
     </footer>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -305,8 +310,29 @@
         footerButtons = $api.domAll(footer, 'div');
 
         fnSwitchFrame(0);
+
+        fnRegistKeyBack();
     };
 
+
+    //keyback 直接到手机桌面的操作
+    function fnRegistKeyBack(){
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err){
+           /* alert(JSON.stringify(ret));*/
+           if (ret) {
+             api.alert({
+               title: '关闭',
+               msg: '退出应用',
+           });
+           }
+          api.closeWidget();
+           /* api.closeWin({
+                name: 'root'
+            });  与closeWidget一样*/
+        });
+    }
     //在4个FRAME之间切换
     function fnSwitchFrame(index) {
         for (var i = 0; i < frames.length; i++) {
